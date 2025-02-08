@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto"
+import { randomUUID } from 'node:crypto'
 
 export class User {
   public id: string
@@ -6,12 +6,7 @@ export class User {
   public username: string
   public password: string
 
-  constructor(
-    id: string,
-    email: string,
-    username: string,
-    password: string
-  ) {
+  constructor(id: string, email: string, username: string, password: string) {
     this.id = id ?? randomUUID()
     this.email = email
     this.username = username

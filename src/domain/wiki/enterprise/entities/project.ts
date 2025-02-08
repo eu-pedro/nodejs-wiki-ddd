@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto"
+import { randomUUID } from 'node:crypto'
 
 export class Project {
   public id: string
@@ -12,7 +12,7 @@ export class Project {
     name: string,
     description: string,
     isPublic: boolean,
-    date: Date
+    date: Date,
   ) {
     this.id = id ?? randomUUID()
     this.name = name
