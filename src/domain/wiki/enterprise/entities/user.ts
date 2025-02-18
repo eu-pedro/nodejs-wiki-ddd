@@ -1,15 +1,46 @@
-import { randomUUID } from 'node:crypto'
+import { Entity } from '../../core/entities/entity'
+import { UniqueEntityID } from '../../core/entities/unique-entity-id'
+import { Optional } from '../../core/types/optional'
 
-export class User {
-  public id: string
-  public email: string
-  public username: string
-  public password: string
+interface Props {
+  email: string
+  username: string
+  password: string
+  createdAt: Date
+  updatedAt?: Date
+}
 
-  constructor(id: string, email: string, username: string, password: string) {
-    this.id = id ?? randomUUID()
-    this.email = email
-    this.username = username
-    this.password = password
+export class User extends Entity<Props> {
+  get email() {
+    return this.props.email
+  }
+
+  get username() {
+    return this.props.username
+  }
+
+  get password() {
+    return this.props.password
+  }
+
+  set username(username: string) {
+    this.props.username = username
+    this.touch()
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
+  }
+
+  static create(props: Optional<Props, 'createdAt'>, id?: UniqueEntityID) {
+    const user = new User(
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id,
+    )
+
+    return user
   }
 }
